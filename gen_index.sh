@@ -1,31 +1,31 @@
 #!/bin/bash
 
 InputDir=$1
-OutputDir=$2
 
 function Usage() {
-    echo "./gen_index.sh <input dir> <output dir>"
+    echo "./gen_index.sh <input dir>"
 }
 
 function GenerateIndex() {
     cat ./templates/header.html > index.html
-    find $1 -type f -name '*.html' | while IFS='' read -r file
+    cd $1
+    find . -type f -name '*.html' | while IFS='' read -r file
     do
         read -r title < "$file"  # assuming it is the first line
         printf '<a href="%s">%s</a></br>\n' "$file" "$file"
     done >> index.html
+    cd - > /dev/null
     cat ./templates/footer.html >> index.html
 }
 
-function MoveFile() {
-    mv index.html $1/
+function Move() {
+    mv 
 }
 
-if [[ $# != 2 ]] || [[ ! -d "$InputDir" ]] || [[ ! -d "$OutputDir" ]]
+if [[ $# != 1 ]] || [[ ! -d "$InputDir" ]]
 then
     Usage
 else
     GenerateIndex $InputDir
-    MoveFile $OutputDir
 fi
 
