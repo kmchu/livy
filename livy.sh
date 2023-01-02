@@ -28,6 +28,9 @@ function Convert() {
             --to html5+smart \
             -o "${Destination}" \
             "$file"
+
+        # Copy .md file timestamp to generated .html
+        touch -r "$file" "$Destination"
     done
 }
 
