@@ -14,6 +14,18 @@ chmod a+x ~/.local/bin/livy
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
+You could also create a custom `Makefile`:
+```Makefile
+.PHONY: all clean
+
+all:
+	- livy ./ output/
+
+clean:
+	- rm -rf output/*
+```
+
 # Resources
 - [pandoc-markdown-css-theme](https://github.com/jez/pandoc-markdown-css-theme)
 - [Panam styling](https://benjam.info/panam/)
+- [bake: static site generation via Makefile](https://github.com/fcanas/bake)
