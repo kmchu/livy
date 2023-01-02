@@ -20,6 +20,8 @@ function Convert() {
             --katex \
             --from markdown+tex_math_single_backslash \
             --filter pandoc-sidenote \
+            --embed-resources \
+            --standalone \
             --template="$3"/templates/template.html5 \
             --css=css/styles.css \
             --css=css/skylighting-solarized-theme.css \
@@ -41,5 +43,5 @@ then
     Usage
 else
     Convert $InputDir $OutputDir $ExecDir
-    CopyEssentials $OutputDir $ExecDir
+    GenerateIndex $OutputDir $ExecDir
 fi
