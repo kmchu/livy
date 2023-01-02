@@ -33,8 +33,18 @@ function Convert() {
 
 # CopyEssentials <OutputDir> <ExecDir>
 function CopyEssentials() {
-    echo $2
     cp -R "$2/css" "$1"
+}
+
+
+# GenerateIndex <HTMLdir> <ExecDir>
+function GenerateIndex() {
+    cat $2/templates/header.html > $1/index.html
+    find $1 -type f -name '*.html' | while IFS='' read -r file
+    do
+        printf '<a href="%s">%s</a></br>\n' "$file" "$file"
+    done >> $1/index.html
+    cat $2/templates/footer.html >> $1/index.html
 }
 
 
@@ -42,6 +52,7 @@ if [[ $# != 2 ]] || [[ ! -d "$InputDir" ]] || [[ ! -d "$OutputDir" ]]
 then
     Usage
 else
+    CopyEssentials $OutputDir $ExecDir
     Convert $InputDir $OutputDir $ExecDir
     GenerateIndex $OutputDir $ExecDir
 fi
