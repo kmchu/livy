@@ -29,3 +29,4 @@ clean:
 - [pandoc-markdown-css-theme](https://github.com/jez/pandoc-markdown-css-theme)
 - [Panam styling](https://benjam.info/panam/)
 - [bake: static site generation via Makefile](https://github.com/fcanas/bake)
+- [kryogenix's sorttable](https://www.kryogenix.org/code/browser/sorttable/)

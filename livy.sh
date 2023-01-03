@@ -36,6 +36,7 @@ function Convert() {
 
 # CopyEssentials <OutputDir> <ExecDir>
 function CopyEssentials() {
+    cp -R "$2/js" "$1"
     cp -R "$2/css" "$1"
 }
 
@@ -45,7 +46,10 @@ function GenerateIndex() {
     cat $2/templates/header.html > $1/index.html
     find $1 -type f -name '*.html' | while IFS='' read -r file
     do
-        printf '<a href="%s">%s</a></br>\n' "$file" "$file"
+        printf '<tr>\n'
+        printf '\t<td><a href="%s">%s</a></td>\n' "$file" "$file"
+        printf '\t<td sorttable_customkey="%s\">%s</td>\n' "$( date -r $file +%s )" "$( date -r $file )"
+        printf '</tr>\n'
     done >> $1/index.html
     cat $2/templates/footer.html >> $1/index.html
 }
