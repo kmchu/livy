@@ -47,11 +47,22 @@ function GenerateIndex() {
     find $1 -type f -name '*.html' | while IFS='' read -r file
     do
         printf '<tr>\n'
-        printf '\t<td><a href="%s">%s</a></td>\n' "$file" "$file"
+        printf '\t<td><a href="%s">%s</a></td>\n' "$file" "$( GetTitle $file )"
+        printf '\t<td><a href="%s">%s</a></td>\n' "$file" "$( GetPrettyFilePath $1 $file )"
         printf '\t<td sorttable_customkey="%s\">%s</td>\n' "$( date -r $file +%s )" "$( date -r $file )"
         printf '</tr>\n'
     done >> $1/index.html
     cat $2/templates/footer.html >> $1/index.html
+}
+
+# GetTitle <HTMLfile>
+function GetTitle() {
+    grep -i "<h1 class=\"title\">" $1 | sed 's/^[[:blank:]]*//;s/[[:blank:]]*$//' | sed -e 's/<[^>]*>//g'
+}
+
+# GetPrettyFilePath <HTMLdir> <file name>
+function GetPrettyFilePath() {
+    echo ${2#$1}
 }
 
 
